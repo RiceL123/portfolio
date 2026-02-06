@@ -3,6 +3,7 @@ import { useMemo, useContext, createContext, useRef, useState, type ReactNode } 
 import { useFrame } from '@react-three/fiber'
 import { useGLTF, Merged, RenderTexture, PerspectiveCamera, Text, useCursor, Html } from '@react-three/drei'
 import { ResumeContext, type ResumeSectionId } from './ResumeContext'
+import { PerformanceContext } from './PerformanceContext'
 
 // Define the context type for TypeScript
 const context = createContext<any>(null)
@@ -166,6 +167,8 @@ export function Computers(props: any) {
 
 function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, tooltip, showTooltip, ...props }: any) {
   const { nodes, materials } = useGLTF('/computers_1-transformed.glb') as any
+  const perf = useContext(PerformanceContext)
+  const texSize = perf.isMobile ? 256 : 512
   return (
     <group {...props}>
       {tooltip && (
@@ -207,7 +210,7 @@ function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, 
         onClick={onClick}
       >
         <meshBasicMaterial toneMapped={false}>
-          <RenderTexture width={512} height={512} attach="map" anisotropy={16}>
+          <RenderTexture width={texSize} height={texSize} attach="map" anisotropy={perf.isMobile ? 4 : 16}>
             {children}
           </RenderTexture>
         </meshBasicMaterial>

@@ -6,10 +6,12 @@ import { easing } from 'maath'
 import { Instances, Computers } from './Computers.tsx'
 import { ResumeContext, type ResumeSectionId } from './ResumeContext'
 import { ResumeOverlay } from './ResumeOverlay'
+import { PerformanceContext } from './PerformanceContext'
 
 export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false)
   const [scrollToSection, setScrollToSection] = useState<ResumeSectionId | null>(null)
+  const perf = useContext(PerformanceContext)
   useEffect(() => {
     const hash = window.location.hash.slice(1)
     if (hash === 'experience' || hash === 'skills' || hash === 'education' || hash === 'projects') {
@@ -30,8 +32,9 @@ export default function App() {
     <ResumeContext.Provider value={{ resumeOpen, setResumeOpen, scrollToSection, setScrollToSection, openResumeTo }}>
       <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', touchAction: 'none' }}>
         <Canvas
-          shadows
-          dpr={[1, 2]}
+          shadows={!perf.isMobile}
+          dpr={perf.isMobile ? 1 : [1, 2]}
+          gl={{ antialias: !perf.isMobile }}
           camera={{ position: [-1.5, 1, 5.5], fov: 45, near: 1, far: 20 }}
           eventSource={document.getElementById('root') ?? undefined}
           eventPrefix="client"
@@ -46,6 +49,7 @@ export default function App() {
 
 function SceneContent() {
   const resume = useContext(ResumeContext)
+  const perf = useContext(PerformanceContext)
   const groupRef = useRef<any>(null)
   const targetX = resume?.resumeOpen ? -2 : 0
   useFrame((_, delta) => {
@@ -58,16 +62,24 @@ function SceneContent() {
     <>
       <color attach="background" args={['black']} />
       <hemisphereLight intensity={0.15} groundColor="black" />
-      <spotLight decay={0} position={[10, 20, 10]} angle={0.12} penumbra={1} intensity={1} castShadow shadow-mapSize={1024} />
+      <spotLight
+        decay={0}
+        position={[10, 20, 10]}
+        angle={0.12}
+        penumbra={1}
+        intensity={1}
+        castShadow={!perf.isMobile}
+        shadow-mapSize={perf.isMobile ? 512 : 1024}
+      />
       <group ref={groupRef} position={[0, -1, 0]}>
         <Instances>
           <Computers scale={0.5} />
         </Instances>
-        <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh receiveShadow={!perf.isMobile} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[50, 50]} />
           <MeshReflectorMaterial
             blur={[300, 100]}
-            resolution={2048}
+            resolution={perf.isMobile ? 512 : 2048}
             mixBlur={1}
             mixStrength={100}
             roughness={0}
@@ -80,8 +92,14 @@ function SceneContent() {
         </mesh>
       </group>
       <EffectComposer>
-        <Bloom luminanceThreshold={0.1} luminanceSmoothing={0} intensity={3} mipmapBlur />
-        <DepthOfField target={[0, 0, -2]} focusRange={4} bokehScale={4} height={700} />
+        {perf.isMobile ? (
+          <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.2} intensity={1.5} />
+        ) : (
+          <>
+            <Bloom luminanceThreshold={0.1} luminanceSmoothing={0} intensity={3} mipmapBlur />
+            <DepthOfField target={[0, 0, -2]} focusRange={4} bokehScale={4} height={700} />
+          </>
+        )}
       </EffectComposer>
       <CameraRig />
       <BakeShadows />
