@@ -28,11 +28,16 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const resume = useContext(ResumeContext)
 
+  const scrollRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (!resume?.scrollToSection || !containerRef.current) return
-    const el = containerRef.current.querySelector(`#${resume.scrollToSection}`)
+    if (!resume?.scrollToSection || !containerRef.current || !scrollRef.current) return
+    const el = containerRef.current.querySelector(`#${resume.scrollToSection}`) as HTMLElement | null
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const container = scrollRef.current
+      const elTop = el.offsetTop
+      const maxScroll = container.scrollHeight - container.clientHeight
+      const targetScroll = Math.min(Math.max(0, elTop - 24), maxScroll)
+      container.scrollTo({ top: targetScroll, behavior: 'smooth' })
       resume.setScrollToSection(null)
     }
   }, [resume?.scrollToSection, resume?.setScrollToSection])
@@ -40,6 +45,7 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
   return (
     <div
       ref={containerRef}
+      data-resume-overlay
       style={{
         position: 'absolute',
         top: 20,
@@ -97,10 +103,14 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
         </button>
       </header>
       <div
+        ref={scrollRef}
         style={{
           flex: 1,
           overflow: 'auto',
           padding: 24,
+          paddingBottom: 120,
+          scrollBehavior: 'smooth',
+          WebkitOverflowScrolling: 'touch',
         }}
       >
         <p style={{ ...bodyStyles, marginBottom: 20, fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>
@@ -136,13 +146,6 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
               <li style={{ ...bodyStyles, ...listItemStyles }}>Increased product visibility on Amazon/eBay by optimizing listings for SEO</li>
             </ul>
           </div>
-        </section>
-        <section id="skills" style={sectionStyles}>
-          <h2 style={headingStyles}>Technical Skills</h2>
-          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Languages:</strong> JavaScript, TypeScript, Python, Java, C, Rust, Elixir, Bash, SQL, HTML/CSS</p>
-          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Frameworks / Libraries:</strong> React, Angular, Astro, Vue, TailwindCSS, Express, Flask, Spring Boot</p>
-          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Databases:</strong> PostgreSQL, SQLite, libSQL, MongoDB</p>
-          <p style={bodyStyles}><strong>Developer Tools:</strong> Git, GitHub Actions, GitLab CI/CD, Docker, Vercel, Render, Fly.io</p>
         </section>
         <section id="education" style={sectionStyles}>
           <h2 style={headingStyles}>Education</h2>
@@ -181,6 +184,13 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
               <li style={{ ...bodyStyles, ...listItemStyles }}>Landing page for links; custom JS/CSS animations</li>
             </ul>
           </div>
+        </section>
+        <section id="skills" style={sectionStyles}>
+          <h2 style={headingStyles}>Technical Skills</h2>
+          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Languages:</strong> JavaScript, TypeScript, Python, Java, C, Rust, Elixir, Bash, SQL, HTML/CSS</p>
+          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Frameworks / Libraries:</strong> React, Angular, Astro, Vue, TailwindCSS, Express, Flask, Spring Boot</p>
+          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Databases:</strong> PostgreSQL, SQLite, libSQL, MongoDB</p>
+          <p style={bodyStyles}><strong>Developer Tools:</strong> Git, GitHub Actions, GitLab CI/CD, Docker, Vercel, Render, Fly.io</p>
         </section>
       </div>
     </div>

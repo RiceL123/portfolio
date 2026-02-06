@@ -7,4 +7,13 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  touch-action: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Allow scrolling only inside the resume overlay */
+[data-resume-overlay] {
+  touch-action: auto;
+  overflow: auto;
 }
