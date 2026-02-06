@@ -22,6 +22,8 @@ const bodyStyles = {
 const jobTitleStyles = { fontWeight: 600, color: 'rgba(255,255,255,0.95)' }
 const metaStyles = { fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 2 }
 const listItemStyles = { marginBottom: 6, paddingLeft: 4 }
+const listStyles = { marginTop: 6, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' as const }
+const projectSubheadingStyles = { fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 4, marginBottom: 0 }
 const linkStyles = { color: 'rgba(255,255,255,0.85)', textDecoration: 'underline' }
 
 export function ResumeOverlay({ onClose }: { onClose: () => void }) {
@@ -123,7 +125,7 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
           <div style={{ marginBottom: 20 }}>
             <div style={jobTitleStyles}>Intern — Frontend Infrastructure</div>
             <div style={metaStyles}>Freelancer.com · Sydney, NSW · Present</div>
-            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 18 }}>
+            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
               <li style={{ ...bodyStyles, ...listItemStyles }}>Building and maintaining Angular frontend infrastructure and shared tooling</li>
               <li style={{ ...bodyStyles, ...listItemStyles }}>Configuring and maintaining Jenkins CI/CD pipelines for frontend builds and deployments</li>
               <li style={{ ...bodyStyles, ...listItemStyles }}>Contributing to an in-house Angular component library used across products</li>
@@ -133,7 +135,7 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
           <div style={{ marginBottom: 20 }}>
             <div style={jobTitleStyles}>Software Developer — AI Trainer</div>
             <div style={metaStyles}>DataAnnotation · Remote · Feb 2024 — Present</div>
-            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 18 }}>
+            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
               <li style={{ ...bodyStyles, ...listItemStyles }}>Fine-tuning LLMs: testing, correcting and improving output for accuracy and performance</li>
               <li style={{ ...bodyStyles, ...listItemStyles }}>Reviewed and corrected 500+ AI-generated code responses in React, JavaScript/TypeScript, Python, Java, Go, Rust, and SQL</li>
             </ul>
@@ -141,7 +143,7 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
           <div>
             <div style={jobTitleStyles}>Assistant Manager</div>
             <div style={metaStyles}>All Luggage Solutions · Brisbane, QLD · Feb 2020 — Jan 2022</div>
-            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 18 }}>
+            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
               <li style={{ ...bodyStyles, ...listItemStyles }}>Automated manual entry of customer shipping information with JavaScript, reducing packaging times by 25%</li>
               <li style={{ ...bodyStyles, ...listItemStyles }}>Increased product visibility on Amazon/eBay by optimizing listings for SEO</li>
             </ul>
@@ -151,7 +153,7 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
           <h2 style={headingStyles}>Education</h2>
           <div style={jobTitleStyles}>University of New South Wales</div>
           <div style={metaStyles}>Sydney, NSW · Bachelor of Computer Science · WAM 80/100 (Distinction) · Graduated 2025</div>
-          <ul style={{ marginTop: 10, marginBottom: 0, paddingLeft: 18 }}>
+          <ul style={{ marginTop: 10, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
             <li style={{ ...bodyStyles, ...listItemStyles }}>Web Front-End Programming — React, Cypress, Jest: 88</li>
             <li style={{ ...bodyStyles, ...listItemStyles }}>User Interface Design & Construction — usability testing, Figma, React Native: 89</li>
             <li style={{ ...bodyStyles, ...listItemStyles }}>Software Engineering Fundamentals — Node.js, Express, SQLite: 99</li>
@@ -160,28 +162,36 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
         <section id="projects" style={sectionStyles}>
           <h2 style={headingStyles}>Projects</h2>
           <div style={{ marginBottom: 16 }}>
-            <div style={jobTitleStyles}><a href="https://ricelang-playground.vercel.app/" target="_blank" rel="noreferrer" style={linkStyles}>RiceLang Playground</a> · React, Java, Spring Boot, Wasm · Feb 2025 — Present</div>
-            <ul style={{ marginTop: 6, marginBottom: 0, paddingLeft: 18 }}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Compiler for custom C/Java-like language RiceLang targeting JVM bytecode; Next.js frontend with Shadcn, AST/output viz</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Spring Boot backend for compilation/execution; WASM JS transpiler ~95%+ perf improvement over backend</li>
+            <div style={jobTitleStyles}><a href="https://ricelang-playground.vercel.app/" target="_blank" rel="noreferrer" style={linkStyles}>RiceLang Playground</a></div>
+            <div style={projectSubheadingStyles}>React, Java, Spring Boot, Wasm · Feb 2025 — Present</div>
+            <ul style={listStyles}>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Compiler for custom C/Java-like language RiceLang targeting JVM bytecode. Next.js frontend with Shadcn, AST/output viz.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Spring Boot backend for compilation/execution.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>WASM JS transpiler ~95%+ perf improvement over backend.</li>
             </ul>
           </div>
           <div style={{ marginBottom: 16 }}>
-            <div style={jobTitleStyles}><a href="https://ricel123.vercel.app/" target="_blank" rel="noreferrer" style={linkStyles}>Personal Blog</a> · Astro, libSQL, DrizzleORM, TailwindCSS · Oct–Nov 2024</div>
-            <ul style={{ marginTop: 6, marginBottom: 0, paddingLeft: 18 }}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>99+ Lighthouse score; AstroDB + DrizzleORM for likes/comments with optimistic updates</li>
+            <div style={jobTitleStyles}><a href="https://ricel123.vercel.app/" target="_blank" rel="noreferrer" style={linkStyles}>Personal Blog</a></div>
+            <div style={projectSubheadingStyles}>Astro, libSQL, DrizzleORM, TailwindCSS · Oct–Nov 2024</div>
+            <ul style={listStyles}>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>99+ Lighthouse score.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>AstroDB + DrizzleORM for likes/comments with optimistic updates.</li>
             </ul>
           </div>
           <div style={{ marginBottom: 16 }}>
-            <div style={jobTitleStyles}><a href="https://dns-riceolver.vercel.app" target="_blank" rel="noreferrer" style={linkStyles}>Recursive DNS Resolver</a> · Python, React, JavaScript, Docker · May 2023 — Jan 2024</div>
-            <ul style={{ marginTop: 6, marginBottom: 0, paddingLeft: 18 }}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>RFC-1035 compliant resolver, 500+ q/s; Express + React frontend with Cloudflare/Google/Quad9 options</li>
+            <div style={jobTitleStyles}><a href="https://dns-riceolver.vercel.app" target="_blank" rel="noreferrer" style={linkStyles}>Recursive DNS Resolver</a></div>
+            <div style={projectSubheadingStyles}>Python, React, JavaScript, Docker · May 2023 — Jan 2024</div>
+            <ul style={listStyles}>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>RFC-1035 compliant resolver, 500+ q/s.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Express + React frontend with Cloudflare/Google/Quad9 options.</li>
             </ul>
           </div>
           <div>
-            <div style={jobTitleStyles}><a href="https://ricel123-links.onrender.com/" target="_blank" rel="noreferrer" style={linkStyles}>Personal Links</a> · Vue, JavaScript · Jan–Aug 2023</div>
-            <ul style={{ marginTop: 6, marginBottom: 0, paddingLeft: 18 }}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Landing page for links; custom JS/CSS animations</li>
+            <div style={jobTitleStyles}><a href="https://ricel123-links.onrender.com/" target="_blank" rel="noreferrer" style={linkStyles}>Personal Links</a></div>
+            <div style={projectSubheadingStyles}>Vue, JavaScript · Jan–Aug 2023</div>
+            <ul style={listStyles}>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Landing page for links.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Custom JS/CSS animations.</li>
             </ul>
           </div>
         </section>
