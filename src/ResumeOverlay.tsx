@@ -5,6 +5,7 @@ const sectionStyles = {
   marginBottom: 28,
   padding: '16px 0',
   borderBottom: '1px solid rgba(255,255,255,0.06)',
+  scrollMarginTop: 12,
 }
 const headingStyles = {
   fontSize: '0.75rem',
@@ -106,6 +107,7 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
       </header>
       <div
         ref={scrollRef}
+        data-resume-scroll
         style={{
           flex: 1,
           overflow: 'auto',

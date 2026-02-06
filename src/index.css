@@ -17,3 +17,31 @@ body,
   touch-action: auto;
   overflow: auto;
 }
+
+/* Resume overlay scrollbar - minimal and on-brand */
+[data-resume-scroll] {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+[data-resume-scroll]::-webkit-scrollbar {
+  width: 8px;
+}
+[data-resume-scroll]::-webkit-scrollbar-track {
+  background: transparent;
+}
+[data-resume-scroll]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+}
+[data-resume-scroll]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Fragment scroll offset so headings aren’t flush to top */
+[data-resume-overlay] [id="experience"],
+[data-resume-overlay] [id="skills"],
+[data-resume-overlay] [id="education"],
+[data-resume-overlay] [id="projects"] {
+  scroll-margin-top: 12px;
+}
