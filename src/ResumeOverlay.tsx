@@ -27,20 +27,16 @@ const listStyles = { marginTop: 6, marginBottom: 0, paddingLeft: 20, listStyleTy
 const projectSubheadingStyles = { fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 4, marginBottom: 0 }
 const linkStyles = { color: 'rgba(255,255,255,0.85)', textDecoration: 'underline' }
 
-export function ResumeOverlay({ onClose }: { onClose: () => void }) {
+export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const resume = useContext(ResumeContext)
 
   const scrollRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (!resume?.scrollToSection || !containerRef.current || !scrollRef.current) return
+    if (!resume?.scrollToSection || !containerRef.current) return
     const el = containerRef.current.querySelector(`#${resume.scrollToSection}`) as HTMLElement | null
     if (el) {
-      const container = scrollRef.current
-      const elTop = el.offsetTop
-      const maxScroll = container.scrollHeight - container.clientHeight
-      const targetScroll = Math.min(Math.max(0, elTop - 24), maxScroll)
-      container.scrollTo({ top: targetScroll, behavior: 'smooth' })
+      el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
       resume.setScrollToSection(null)
     }
   }, [resume?.scrollToSection, resume?.setScrollToSection])
@@ -66,6 +62,9 @@ export function ResumeOverlay({ onClose }: { onClose: () => void }) {
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
+        opacity: open ? 1 : 0,
+        pointerEvents: open ? 'auto' : 'none',
+        transition: 'opacity 0.2s ease',
       }}
     >
       <header

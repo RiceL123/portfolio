@@ -4,6 +4,7 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF, Merged, RenderTexture, PerspectiveCamera, Text, useCursor, Html } from '@react-three/drei'
 import { ResumeContext, type ResumeSectionId } from './ResumeContext'
 import { PerformanceContext } from './PerformanceContext'
+import { ScreenTooltip } from './ScreenTooltip'
 
 // Define the context type for TypeScript
 const context = createContext<any>(null)
@@ -165,33 +166,15 @@ export function Computers(props: any) {
   )
 }
 
-function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, tooltip, showTooltip, ...props }: any) {
+function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, tooltip, showTooltip, tooltipResume, ...props }: any) {
   const { nodes, materials } = useGLTF('/computers_1-transformed.glb') as any
   const perf = useContext(PerformanceContext)
   const texSize = perf.isMobile ? 256 : 512
   return (
     <group {...props}>
       {tooltip && (
-        <Html position={[0, 0, 0.15]} center distanceFactor={2.2} style={{ pointerEvents: 'none' }}>
-          <span
-            style={{
-              padding: '28px 44px',
-              fontSize: 56,
-              fontWeight: 600,
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.12) 100%)',
-              backdropFilter: 'blur(20px) saturate(150%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(150%)',
-              color: 'rgba(255,255,255,0.95)',
-              borderRadius: 16,
-              whiteSpace: 'nowrap',
-              border: '1px solid rgba(255,255,255,0.25)',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.35)',
-              opacity: showTooltip ? 1 : 0,
-              transition: 'opacity 0.25s ease',
-            }}
-          >
-            {tooltip}
-          </span>
+        <Html position={[0, 0, 0.05]} center distanceFactor={10} style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <ScreenTooltip label={tooltipResume ? 'Resume' : tooltip} visible={showTooltip} />
         </Html>
       )}
       <mesh
@@ -266,12 +249,14 @@ function ScreenText({ invert = false, x = 0, y = 1.2, resumeSection, ...props }:
 function ScreenInteractive(props: any) {
   const [hovered, setHovered] = useState(false)
   const resume = useContext(ResumeContext)
+  const perf = useContext(PerformanceContext)
   useCursor(hovered)
   return (
     <Screen
       {...props}
-      tooltip="View resume"
-      showTooltip={hovered}
+      tooltip="Resume"
+      tooltipResume
+      showTooltip={hovered || perf.isMobile}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       onClick={() => resume?.setResumeOpen(true)}

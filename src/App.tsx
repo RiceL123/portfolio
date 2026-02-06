@@ -41,7 +41,7 @@ export default function App() {
         >
           <SceneContent />
         </Canvas>
-        {resumeOpen && <ResumeOverlay onClose={handleCloseOverlay} />}
+        <ResumeOverlay open={resumeOpen} onClose={handleCloseOverlay} />
       </div>
     </ResumeContext.Provider>
   )
