@@ -37,7 +37,7 @@ export default function App() {
           shadows={!perf.isMobile}
           dpr={perf.isMobile ? 1 : [1, 2]}
           gl={{ antialias: !perf.isMobile }}
-          camera={{ position: [-1.5, 1, 5.5], fov: 45, near: 1, far: 20 }}
+          camera={{ position: [-1.5, 1, perf.isMobile ? 11.5 : 5.5], fov: 45, near: 1, far: 35 }}
           eventSource={document.getElementById('root') ?? undefined}
           eventPrefix="client"
         >
@@ -110,13 +110,15 @@ function SceneContent() {
 }
 
 function CameraRig() {
+  const perf = useContext(PerformanceContext)
   const influence = 0.35
+  const cameraZ = perf.isMobile ? 11.5 : 5.5
   useFrame((state, delta) => {
     const x = -1 + (state.pointer.x * state.viewport.width * influence) / 3
     const y = (1 + state.pointer.y * influence) / 2
-    easing.damp3(state.camera.position, [x, y, 5.5], 0.5, delta)
+    easing.damp3(state.camera.position, [x, y, cameraZ], 0.5, delta)
     state.camera.lookAt(0, 0, 0)
   })
 
-  return null;
+  return null
 }
