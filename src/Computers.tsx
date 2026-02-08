@@ -300,7 +300,6 @@ function ScreenInteractive(props: any) {
   const randRef = useRef(Math.random() * 10000)
   const [hovered, setHovered] = useState(false)
   const resume = useContext(ResumeContext)
-  const perf = useContext(PerformanceContext)
   useCursor(hovered)
   useFrame((state) => {
     if (textRef.current) {
@@ -312,7 +311,7 @@ function ScreenInteractive(props: any) {
       {...props}
       tooltip="Resume"
       tooltipResume
-      showTooltip={hovered || perf.isMobile}
+      showTooltip={hovered}
       onPointerOver={(e: any) => {
         e.stopPropagation()
         setHovered(true)
