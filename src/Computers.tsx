@@ -156,10 +156,10 @@ export function Computers(props: any) {
       <ScreenText frame="Object_209" panel="Object_210" y={5} position={[-1.43, 2.5, -1.8]} rotation={[0, 1, 0]} resumeSection="experience" />
       <ScreenText invert frame="Object_212" panel="Object_213" x={-5} y={5} position={[-2.73, 0.63, -0.52]} rotation={[0, 1.09, 0]} resumeSection="skills" />
       <ScreenText invert frame="Object_215" panel="Object_216" position={[1.84, 0.38, -1.77]} rotation={[0, -Math.PI / 9, 0]} resumeSection="education" />
-      <ScreenText invert frame="Object_218" panel="Object_219" x={-5} position={[3.11, 2.15, -0.18]} rotation={[0, -0.79, 0]} scale={0.81} resumeSection="experience" />
-      <ScreenText frame="Object_221" panel="Object_222" y={5} position={[-3.42, 3.06, 1.3]} rotation={[0, 1.22, 0]} scale={0.9} resumeSection="skills" />
-      <ScreenText invert frame="Object_224" panel="Object_225" position={[-3.9, 4.29, -2.64]} rotation={[0, 0.54, 0]} resumeSection="education" />
-      <ScreenText frame="Object_227" panel="Object_228" position={[0.96, 4.28, -4.2]} rotation={[0, -0.65, 0]} resumeSection="experience" />
+      <ScreenLink invert frame="Object_218" panel="Object_219" x={-5} position={[3.11, 2.15, -0.18]} rotation={[0, -0.79, 0]} scale={0.81} label="GitHub" href="https://github.com/ricel123" />
+      <ScreenLink frame="Object_221" panel="Object_222" y={5} position={[-3.42, 3.06, 1.3]} rotation={[0, 1.22, 0]} scale={0.9} label="LinkedIn" href="https://linkedin.com/in/-eric-liao" />
+      <ScreenLink invert frame="Object_224" panel="Object_225" position={[-3.9, 4.29, -2.64]} rotation={[0, 0.54, 0]} label="Download Resume" href="/ERIC%20LIAO%20RESUME.pdf" download />
+      <ScreenText frame="Object_227" panel="Object_228" position={[0.96, 4.28, -4.2]} rotation={[0, -0.65, 0]} resumeSection="projects" />
       <ScreenText frame="Object_230" panel="Object_231" position={[4.68, 4.29, -1.56]} rotation={[0, -Math.PI / 3, 0]} resumeSection="projects" />
       <Leds instances={instances} />
     </group>
@@ -209,6 +209,53 @@ const SECTION_LABELS: Record<ResumeSectionId, string> = {
   projects: 'Projects',
 }
 
+function ScreenLink({ invert = false, x = 0, y = 1.2, label, href, download, ...props }: any) {
+  const textRef = useRef<any>(null)
+  const randRef = useRef(Math.random() * 10000)
+  const [hovered, setHovered] = useState(false)
+  useCursor(hovered)
+  useFrame((state) => {
+    if (textRef.current) {
+      textRef.current.position.x = x + Math.sin(randRef.current + state.clock.elapsedTime / 4) * 8
+    }
+  })
+  const isInvertedByDefault = Boolean(invert)
+  const inverted = isInvertedByDefault !== hovered
+  const handleClick = () => {
+    if (download) {
+      const a = document.createElement('a')
+      a.href = href
+      a.download = ''
+      a.rel = 'noopener noreferrer'
+      a.target = '_blank'
+      a.click()
+    } else {
+      window.open(href, '_blank', 'noopener,noreferrer')
+    }
+  }
+  return (
+    <Screen
+      {...props}
+      tooltip={label}
+      showTooltip={hovered}
+      onPointerOver={(e: any) => {
+        e.stopPropagation()
+        setHovered(true)
+      }}
+      onPointerOut={() => setHovered(false)}
+      onClick={handleClick}
+    >
+      <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 15]} />
+      <color attach="background" args={[inverted ? 'black' : '#35c19f']} />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} />
+      <Text font="/SpaceMono-Regular.ttf" position={[x, y, 0]} ref={textRef} fontSize={4} letterSpacing={-0.1} color={inverted ? '#35c19f' : 'black'}>
+        {label}
+      </Text>
+    </Screen>
+  )
+}
+
 function ScreenText({ invert = false, x = 0, y = 1.2, resumeSection, ...props }: any) {
   const textRef = useRef<any>(null)
   const randRef = useRef(Math.random() * 10000)
@@ -247,24 +294,37 @@ function ScreenText({ invert = false, x = 0, y = 1.2, resumeSection, ...props }:
 }
 
 function ScreenInteractive(props: any) {
+  const textRef = useRef<any>(null)
+  const randRef = useRef(Math.random() * 10000)
   const [hovered, setHovered] = useState(false)
   const resume = useContext(ResumeContext)
   const perf = useContext(PerformanceContext)
   useCursor(hovered)
+  useFrame((state) => {
+    if (textRef.current) {
+      textRef.current.position.x = Math.sin(randRef.current + state.clock.elapsedTime / 4) * 3
+    }
+  })
   return (
     <Screen
       {...props}
       tooltip="Resume"
       tooltipResume
       showTooltip={hovered || perf.isMobile}
-      onPointerOver={() => setHovered(true)}
+      onPointerOver={(e: any) => {
+        e.stopPropagation()
+        setHovered(true)
+      }}
       onPointerOut={() => setHovered(false)}
       onClick={() => resume?.setResumeOpen(true)}
     >
-      <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 10]} />
+      <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 15]} />
       <color attach="background" args={[hovered ? '#ffeb3b' : 'orange']} />
-      <ambientLight intensity={Math.PI / 2} />
-      <pointLight decay={0} position={[10, 10, 10]} intensity={Math.PI} />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} />
+      <Text font="/SpaceMono-Regular.ttf" position={[0, 1.2, 0]} ref={textRef} fontSize={4} letterSpacing={-0.1} color="black" anchorX="center" anchorY="middle">
+        Resume
+      </Text>
     </Screen>
   )
 }

@@ -6,6 +6,7 @@ import { easing } from 'maath'
 import { Instances, Computers } from './Computers.tsx'
 import { ResumeContext, type ResumeSectionId } from './ResumeContext'
 import { ResumeOverlay } from './ResumeOverlay'
+import { LoadingScreen } from './LoadingScreen'
 import { PerformanceContext } from './PerformanceContext'
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
   return (
     <ResumeContext.Provider value={{ resumeOpen, setResumeOpen, scrollToSection, setScrollToSection, openResumeTo }}>
       <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', touchAction: 'none' }}>
+        <LoadingScreen />
         <Canvas
           shadows={!perf.isMobile}
           dpr={perf.isMobile ? 1 : [1, 2]}

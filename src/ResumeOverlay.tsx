@@ -120,88 +120,99 @@ export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () =>
           <a href="https://linkedin.com/in/-eric-liao" target="_blank" rel="noreferrer" style={linkStyles}>LinkedIn</a>
           {' · '}
           <a href="https://github.com/ricel123" target="_blank" rel="noreferrer" style={linkStyles}>GitHub</a>
+          {' · '}
+          <a href="/ERIC%20LIAO%20RESUME.pdf" download style={linkStyles}>Download Resume</a>
         </p>
+        <section id="education" style={sectionStyles}>
+          <h2 style={headingStyles}>Education</h2>
+          <div style={jobTitleStyles}>University of New South Wales</div>
+          <div style={metaStyles}>Sydney, NSW · Bachelor of Computer Science · WAM 80/100 (Distinction) · Feb 2022 – Dec 2025</div>
+          <ul style={{ marginTop: 10, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
+            <li style={{ ...bodyStyles, ...listItemStyles }}>Web Front-End Programming — React, Cypress, Jest: 88</li>
+            <li style={{ ...bodyStyles, ...listItemStyles }}>User Interface Design & Construction — usability testing, Figma prototyping, React Native: 89</li>
+            <li style={{ ...bodyStyles, ...listItemStyles }}>Software Engineering Fundamentals — NodeJS, Express, SQLite: 99</li>
+          </ul>
+        </section>
         <section id="experience" style={sectionStyles}>
           <h2 style={headingStyles}>Experience</h2>
           <div style={{ marginBottom: 20 }}>
-            <div style={jobTitleStyles}>Intern — Frontend Infrastructure</div>
-            <div style={metaStyles}>Freelancer.com · Sydney, NSW · Present</div>
+            <div style={jobTitleStyles}>Software Engineer – Frontend Intern</div>
+            <div style={metaStyles}>Freelancer.com · Sydney, NSW · Dec 2025 – Present</div>
             <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Building and maintaining Angular frontend infrastructure and shared tooling</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Configuring and maintaining Jenkins CI/CD pipelines for frontend builds and deployments</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Contributing to an in-house Angular component library used across products</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Leading migrations from Angular 18 to Angular 19 across the codebase</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Developed and maintained web and cross-platform Angular applications while leading framework and library migrations (i.e. Angular 18 to 19, RxJS to Angular Signals, Protractor to Playwright for E2E testing)</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Working with Figma designs to contribute to custom component library for brand consistency using TailwindCSS</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Contributed to internal tools, including Jenkins CI/CD pipelines, automated alerts and data visualisation systems</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Performed Lighthouse audits and performance testing on pages with company custom state management systems</li>
             </ul>
           </div>
           <div style={{ marginBottom: 20 }}>
-            <div style={jobTitleStyles}>Software Developer — AI Trainer</div>
-            <div style={metaStyles}>DataAnnotation · Remote · Feb 2024 — Present</div>
+            <div style={jobTitleStyles}>Software Developer – AI Trainer</div>
+            <div style={metaStyles}>DataAnnotation · Remote · Feb 2024 – Nov 2025</div>
             <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Fine-tuning LLMs: testing, correcting and improving output for accuracy and performance</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Reviewed and corrected 500+ AI-generated code responses in React, JavaScript/TypeScript, Python, Java, Go, Rust, and SQL</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Fine-tuning LLMs to generate by testing, correcting and improving output for accuracy and performance</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Reviewed and corrected 500+ AI-generated code responses in React, JavaScript/TypeScript, Python, Java, Go, Rust, and SQL to fix bugs, improve readability, and use modern syntax and up-to-date libraries</li>
             </ul>
           </div>
           <div>
             <div style={jobTitleStyles}>Assistant Manager</div>
-            <div style={metaStyles}>All Luggage Solutions · Brisbane, QLD · Feb 2020 — Jan 2022</div>
+            <div style={metaStyles}>All Luggage Solutions · Brisbane, QLD · Feb 2020 – Jan 2022</div>
             <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Automated manual entry of customer shipping information with JavaScript, reducing packaging times by 25%</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Increased product visibility on Amazon/eBay by optimizing listings for SEO</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Automated manual entry of customer shipping information to reduce packaging times by 25% with JavaScript</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Increased product visibility on Amazon/eBay by optimizing listings for SEO to drive sales and boost engagement</li>
             </ul>
           </div>
-        </section>
-        <section id="education" style={sectionStyles}>
-          <h2 style={headingStyles}>Education</h2>
-          <div style={jobTitleStyles}>University of New South Wales</div>
-          <div style={metaStyles}>Sydney, NSW · Bachelor of Computer Science · WAM 80/100 (Distinction) · Graduated 2025</div>
-          <ul style={{ marginTop: 10, marginBottom: 0, paddingLeft: 20, listStyleType: 'disc' }}>
-            <li style={{ ...bodyStyles, ...listItemStyles }}>Web Front-End Programming — React, Cypress, Jest: 88</li>
-            <li style={{ ...bodyStyles, ...listItemStyles }}>User Interface Design & Construction — usability testing, Figma, React Native: 89</li>
-            <li style={{ ...bodyStyles, ...listItemStyles }}>Software Engineering Fundamentals — Node.js, Express, SQLite: 99</li>
-          </ul>
         </section>
         <section id="projects" style={sectionStyles}>
           <h2 style={headingStyles}>Projects</h2>
           <div style={{ marginBottom: 16 }}>
-            <div style={jobTitleStyles}><a href="https://ricelang-playground.vercel.app/" target="_blank" rel="noreferrer" style={linkStyles}>RiceLang Playground</a></div>
-            <div style={projectSubheadingStyles}>React, Java, Spring Boot, Wasm · Feb 2025 — Present</div>
+            <div style={jobTitleStyles}>RiceLang Playground</div>
+            <div style={projectSubheadingStyles}>React, Java, Spring Boot, Wasm · Feb 2025 – Present</div>
             <ul style={listStyles}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Compiler for custom C/Java-like language RiceLang targeting JVM bytecode. Next.js frontend with Shadcn, AST/output viz.</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Spring Boot backend for compilation/execution.</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>WASM JS transpiler ~95%+ perf improvement over backend.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Built a compiler for a custom language, RiceLang, a C/Java-like language that compiles to JVM bytecode</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Created a Next.js frontend using Shadcn to handle syntax highlighting, and visualization of AST and output</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Deployed a Spring Boot backend with routes for compilation and execution for clients without WasmGC support</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Integrated a WASM JavaScript transpiler achieving an average 95%+ performance improvement over the backend</li>
             </ul>
           </div>
           <div style={{ marginBottom: 16 }}>
-            <div style={jobTitleStyles}><a href="https://ricel123.vercel.app/" target="_blank" rel="noreferrer" style={linkStyles}>Personal Blog</a></div>
-            <div style={projectSubheadingStyles}>Astro, libSQL, DrizzleORM, TailwindCSS · Oct–Nov 2024</div>
+            <div style={jobTitleStyles}>Squaregg10 game</div>
+            <div style={projectSubheadingStyles}>PostgreSQL, Rust, Elixir, Bevy, Phoenix · June 2024 – Present</div>
             <ul style={listStyles}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>99+ Lighthouse score.</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>AstroDB + DrizzleORM for likes/comments with optimistic updates.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Developed a WASM-compiled game using Bevy engine and deployed online with PostgreSQL leaderboard</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Implemented real-time chat using Elixir to take advantage of lightweight websockets on Erlang VM (BEAM)</li>
             </ul>
           </div>
           <div style={{ marginBottom: 16 }}>
-            <div style={jobTitleStyles}><a href="https://dns-riceolver.vercel.app" target="_blank" rel="noreferrer" style={linkStyles}>Recursive DNS Resolver</a></div>
-            <div style={projectSubheadingStyles}>Python, React, JavaScript, Docker · May 2023 — Jan 2024</div>
+            <div style={jobTitleStyles}>Personal Blog</div>
+            <div style={projectSubheadingStyles}>Astro, libSQL, DrizzleORM, TailwindCSS · Oct 2024 – Nov 2024</div>
             <ul style={listStyles}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>RFC-1035 compliant resolver, 500+ q/s.</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Express + React frontend with Cloudflare/Google/Quad9 options.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Achieved a 99+ Lighthouse score through static site generation with Astro to build a fast and responsive blog</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Integrated AstroDB with DrizzleORM to handle likes, and comments efficiently with optimistic updates</li>
+            </ul>
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <div style={jobTitleStyles}>Recursive DNS Resolver</div>
+            <div style={projectSubheadingStyles}>Python, React, JavaScript, Docker · May 2023 – Jan 2024</div>
+            <ul style={listStyles}>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Developed an RFC-1035 compliant DNS resolver handling 500+ queries per second with multithreading</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Created an Express-based backend and React frontend with daisyUI with an intuitive interface with options for using Cloudflare, Google and Quad9 as substitute resolvers and dig as an alternative query builder</li>
             </ul>
           </div>
           <div>
-            <div style={jobTitleStyles}><a href="https://ricel123-links.onrender.com/" target="_blank" rel="noreferrer" style={linkStyles}>Personal Links</a></div>
-            <div style={projectSubheadingStyles}>Vue, JavaScript · Jan–Aug 2023</div>
+            <div style={jobTitleStyles}>Personal Links</div>
+            <div style={projectSubheadingStyles}>Vue, JavaScript · Jan 2023 – Aug 2023</div>
             <ul style={listStyles}>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Landing page for links.</li>
-              <li style={{ ...bodyStyles, ...listItemStyles }}>Custom JS/CSS animations.</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Built a personalized site to display relevant links on a single landing page</li>
+              <li style={{ ...bodyStyles, ...listItemStyles }}>Animated custom transitions and effects with native JavaScript and CSS to optimize performance</li>
             </ul>
           </div>
         </section>
         <section id="skills" style={sectionStyles}>
           <h2 style={headingStyles}>Technical Skills</h2>
           <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Languages:</strong> JavaScript, TypeScript, Python, Java, C, Rust, Elixir, Bash, SQL, HTML/CSS</p>
-          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Frameworks / Libraries:</strong> React, Angular, Astro, Vue, TailwindCSS, Express, Flask, Spring Boot</p>
+          <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Frameworks / Libraries:</strong> React, Astro, Vue, TailwindCSS, Express, Flask, Springboot</p>
           <p style={{ ...bodyStyles, marginBottom: 6 }}><strong>Databases:</strong> PostgreSQL, SQLite, libSQL, MongoDB</p>
-          <p style={bodyStyles}><strong>Developer Tools:</strong> Git, GitHub Actions, GitLab CI/CD, Docker, Vercel, Render, Fly.io</p>
+          <p style={bodyStyles}><strong>Developer Tools:</strong> Git, Github Actions, Gitlab CI/CD, Docker, Vercel, Render, Fly.io</p>
         </section>
       </div>
     </div>
