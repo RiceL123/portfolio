@@ -57,7 +57,7 @@ export function LoadingScreen() {
         />
       </div>
       <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', fontFamily: 'system-ui, sans-serif', letterSpacing: '0.02em', marginTop: 4 }}>
-        Eric L's portfolio — clean and minimalist
+        Eric L's portfolio
       </span>
       <style>{`
         @keyframes loadingFillUp {

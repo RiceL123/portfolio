@@ -160,7 +160,7 @@ export function Computers(props: any) {
       <ScreenLink frame="Object_221" panel="Object_222" y={5} position={[-3.42, 3.06, 1.3]} rotation={[0, 1.22, 0]} scale={0.9} label="LinkedIn" href="https://linkedin.com/in/-eric-liao" />
       <ScreenLink invert frame="Object_224" panel="Object_225" position={[-3.9, 4.29, -2.64]} rotation={[0, 0.54, 0]} label="Download Resume" href="/ERIC%20LIAO%20RESUME.pdf" download />
       <ScreenText frame="Object_227" panel="Object_228" position={[0.96, 4.28, -4.2]} rotation={[0, -0.65, 0]} resumeSection="projects" />
-      <ScreenText frame="Object_230" panel="Object_231" position={[4.68, 4.29, -1.56]} rotation={[0, -Math.PI / 3, 0]} resumeSection="projects" />
+      <ScreenLink frame="Object_230" panel="Object_231" position={[4.68, 4.29, -1.56]} rotation={[0, -Math.PI / 3, 0]} label="Instagram" tooltip="Instagram" href="https://www.instagram.com/ricel12345/" />
       <Leds instances={instances} />
     </group>
   )
@@ -184,7 +184,6 @@ function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, 
         material={materials.Texture}
         onPointerOver={onPointerOver}
         onPointerOut={onPointerOut}
-        onClick={onClick}
       />
       <mesh
         geometry={nodes[panel].geometry}
@@ -209,7 +208,7 @@ const SECTION_LABELS: Record<ResumeSectionId, string> = {
   projects: 'Projects',
 }
 
-function ScreenLink({ invert = false, x = 0, y = 1.2, label, href, download, ...props }: any) {
+function ScreenLink({ invert = false, x = 0, y = 1.2, label, tooltip, href, download, ...props }: any) {
   const textRef = useRef<any>(null)
   const randRef = useRef(Math.random() * 10000)
   const [hovered, setHovered] = useState(false)
@@ -236,14 +235,17 @@ function ScreenLink({ invert = false, x = 0, y = 1.2, label, href, download, ...
   return (
     <Screen
       {...props}
-      tooltip={label}
+      tooltip={tooltip ?? label}
       showTooltip={hovered}
       onPointerOver={(e: any) => {
         e.stopPropagation()
         setHovered(true)
       }}
       onPointerOut={() => setHovered(false)}
-      onClick={handleClick}
+      onClick={(e: any) => {
+        e.stopPropagation()
+        handleClick()
+      }}
     >
       <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 15]} />
       <color attach="background" args={[inverted ? 'black' : '#35c19f']} />
