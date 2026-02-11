@@ -65,43 +65,22 @@ export function LoadingScreen() {
 
   return (
     <div
+      className="fixed inset-0 z-[9999] bg-[#0a0a0a] flex flex-col items-center justify-center gap-6"
       style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9999,
-        background: '#0a0a0a',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 24,
         transition: `opacity ${FADE_OUT_MS}ms ease-out`,
         opacity: fading ? 0 : 1,
       }}
     >
-      <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', fontFamily: 'system-ui, sans-serif', letterSpacing: '0.02em' }}>
+      <span className="text-sm text-white/70 font-sans tracking-wide">
         Loading…
       </span>
-      <div
-        style={{
-          width: 180,
-          height: 3,
-          background: 'rgba(255,255,255,0.12)',
-          borderRadius: 2,
-          overflow: 'hidden',
-        }}
-      >
+      <div className="w-[180px] h-0.5 bg-white/10 rounded-sm overflow-hidden">
         <div
-          style={{
-            height: '100%',
-            width: `${progress}%`,
-            background: 'rgba(255,255,255,0.6)',
-            borderRadius: 2,
-            transition: 'width 0.12s ease-out',
-          }}
+          className="h-full bg-white/60 rounded-sm transition-[width] duration-150 ease-out"
+          style={{ width: `${progress}%` }}
         />
       </div>
-      <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', fontFamily: 'system-ui, sans-serif', letterSpacing: '0.02em', marginTop: 4 }}>
+      <span className="text-xs text-white/35 font-sans tracking-wide mt-1">
         Eric L's portfolio
       </span>
     </div>

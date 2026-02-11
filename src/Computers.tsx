@@ -175,7 +175,7 @@ function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, 
   return (
     <group {...props}>
       {tooltip && (
-        <Html position={[0, 0, 0.05]} center distanceFactor={10} style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Html position={[0, 0, 0.05]} center distanceFactor={10} className="pointer-events-none flex justify-center items-center">
           <ScreenTooltip label={tooltipResume ? 'Resume' : tooltip} visible={showTooltip} external={tooltipExternal} download={tooltipDownload} />
         </Html>
       )}
@@ -312,8 +312,8 @@ function ClickArrowHint({ hovered }: { hovered: boolean }) {
     : 'drop-shadow(0 1px 2px rgba(0,0,0,0.4))'
   return (
     <group ref={ref} position={[0, baseY, -0.15]}>
-      <Html center distanceFactor={8} style={{ pointerEvents: 'none' }}>
-        <span style={{ display: 'block', lineHeight: 0, filter: glowFilter, transition: 'filter 0.2s ease' }}>
+      <Html center distanceFactor={8} className="pointer-events-none">
+        <span className="block leading-none transition-[filter] duration-200 ease-out" style={{ filter: glowFilter }}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={ARROW_YELLOW} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 5v14M12 19l-6-6M12 19l6-6" />
           </svg>

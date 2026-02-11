@@ -31,7 +31,7 @@ export default function App() {
   }
   return (
     <ResumeContext.Provider value={{ resumeOpen, setResumeOpen, scrollToSection, setScrollToSection, openResumeTo }}>
-      <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', touchAction: 'none' }}>
+      <div className="relative w-full h-full overflow-hidden touch-none">
         <LoadingScreen />
         <Canvas
           shadows={false}
