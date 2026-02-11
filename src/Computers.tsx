@@ -3,7 +3,6 @@ import { useMemo, useContext, createContext, useRef, useState, type ReactNode } 
 import { useFrame } from '@react-three/fiber'
 import { useGLTF, Merged, RenderTexture, PerspectiveCamera, Text, useCursor, Html } from '@react-three/drei'
 import { ResumeContext, type ResumeSectionId } from './ResumeContext'
-import { PerformanceContext } from './PerformanceContext'
 import { ScreenTooltip } from './ScreenTooltip'
 
 // Define the context type for TypeScript
@@ -152,7 +151,9 @@ export function Computers(props: any) {
       <instances.Object36 position={[-1.1, 4.29, -4.43]} rotation={[0, 0.36, 0]} />
       <instances.Object36 position={[-5.25, 4.29, -1.47]} rotation={[0, 1.25, 0]} />
       <mesh castShadow receiveShadow geometry={n.Object_204.geometry} material={m.Texture} position={[3.2, 4.29, -3.09]} rotation={[-Math.PI, 0.56, 0]} scale={-1} />
-      <ScreenInteractive frame="Object_206" panel="Object_207" position={[0.27, 1.53, -2.61]} />
+      <group position={[0.27, 1.53, -2.61]}>
+        <ScreenInteractive frame="Object_206" panel="Object_207" />
+      </group>
       <ScreenText frame="Object_209" panel="Object_210" y={5} position={[-1.43, 2.5, -1.8]} rotation={[0, 1, 0]} resumeSection="experience" />
       <ScreenText invert frame="Object_212" panel="Object_213" x={-5} y={5} position={[-2.73, 0.63, -0.52]} rotation={[0, 1.09, 0]} resumeSection="skills" />
       <ScreenText invert frame="Object_215" panel="Object_216" position={[1.84, 0.38, -1.77]} rotation={[0, -Math.PI / 9, 0]} resumeSection="education" />
@@ -166,20 +167,19 @@ export function Computers(props: any) {
   )
 }
 
-function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, tooltip, showTooltip, tooltipResume, ...props }: any) {
+const SCREEN_TEX_SIZE = 256
+const SCREEN_ANISOTROPY = 4
+
+function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, tooltip, showTooltip, tooltipResume, tooltipExternal, tooltipDownload, ...props }: any) {
   const { nodes, materials } = useGLTF('/computers_1-transformed.glb') as any
-  const perf = useContext(PerformanceContext)
-  const texSize = perf.isMobile ? 256 : 512
   return (
     <group {...props}>
       {tooltip && (
         <Html position={[0, 0, 0.05]} center distanceFactor={10} style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ScreenTooltip label={tooltipResume ? 'Resume' : tooltip} visible={showTooltip} />
+          <ScreenTooltip label={tooltipResume ? 'Resume' : tooltip} visible={showTooltip} external={tooltipExternal} download={tooltipDownload} />
         </Html>
       )}
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes[frame].geometry}
         material={materials.Texture}
         onPointerOver={onPointerOver}
@@ -192,7 +192,7 @@ function Screen({ frame, panel, children, onPointerOver, onPointerOut, onClick, 
         onClick={onClick}
       >
         <meshBasicMaterial toneMapped={false}>
-          <RenderTexture width={texSize} height={texSize} attach="map" anisotropy={perf.isMobile ? 4 : 16}>
+          <RenderTexture width={SCREEN_TEX_SIZE} height={SCREEN_TEX_SIZE} attach="map" anisotropy={SCREEN_ANISOTROPY}>
             {children}
           </RenderTexture>
         </meshBasicMaterial>
@@ -236,6 +236,8 @@ function ScreenLink({ invert = false, x = 0, y = 1.2, label, tooltip, href, down
     <Screen
       {...props}
       tooltip={tooltip ?? label}
+      tooltipExternal={!download}
+      tooltipDownload={download}
       showTooltip={hovered}
       onPointerOver={(e: any) => {
         e.stopPropagation()
@@ -295,6 +297,32 @@ function ScreenText({ invert = false, x = 0, y = 1.2, resumeSection, ...props }:
   )
 }
 
+const ARROW_YELLOW = '#ffeb3b'
+
+function ClickArrowHint({ hovered }: { hovered: boolean }) {
+  const ref = useRef<THREE.Group>(null!)
+  const baseY = 1.65
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.position.y = baseY + Math.sin(state.clock.elapsedTime * 2.2) * 0.08
+    }
+  })
+  const glowFilter = hovered
+    ? `drop-shadow(0 0 8px ${ARROW_YELLOW}) drop-shadow(0 0 16px ${ARROW_YELLOW}) drop-shadow(0 1px 2px rgba(0,0,0,0.3))`
+    : 'drop-shadow(0 1px 2px rgba(0,0,0,0.4))'
+  return (
+    <group ref={ref} position={[0, baseY, -0.15]}>
+      <Html center distanceFactor={8} style={{ pointerEvents: 'none' }}>
+        <span style={{ display: 'block', lineHeight: 0, filter: glowFilter, transition: 'filter 0.2s ease' }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={ARROW_YELLOW} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 5v14M12 19l-6-6M12 19l6-6" />
+          </svg>
+        </span>
+      </Html>
+    </group>
+  )
+}
+
 function ScreenInteractive(props: any) {
   const textRef = useRef<any>(null)
   const randRef = useRef(Math.random() * 10000)
@@ -307,26 +335,29 @@ function ScreenInteractive(props: any) {
     }
   })
   return (
-    <Screen
-      {...props}
-      tooltip="Resume"
-      tooltipResume
-      showTooltip={hovered}
-      onPointerOver={(e: any) => {
-        e.stopPropagation()
-        setHovered(true)
-      }}
-      onPointerOut={() => setHovered(false)}
-      onClick={() => resume?.setResumeOpen(true)}
-    >
-      <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 15]} />
-      <color attach="background" args={[hovered ? '#ffeb3b' : 'orange']} />
+    <>
+      <ClickArrowHint hovered={hovered} />
+      <Screen
+        {...props}
+        tooltip="Resume"
+        tooltipResume
+        showTooltip={hovered}
+        onPointerOver={(e: any) => {
+          e.stopPropagation()
+          setHovered(true)
+        }}
+        onPointerOut={() => setHovered(false)}
+        onClick={() => resume?.setResumeOpen(true)}
+      >
+        <PerspectiveCamera makeDefault manual aspect={1 / 1} position={[0, 0, 15]} />
+        <color attach="background" args={[hovered ? ARROW_YELLOW : 'orange']} />
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} />
       <Text font="/SpaceMono-Regular.ttf" position={[0, 1.2, 0]} ref={textRef} fontSize={4} letterSpacing={-0.1} color="black" anchorX="center" anchorY="middle">
         Resume
       </Text>
     </Screen>
+    </>
   )
 }
 

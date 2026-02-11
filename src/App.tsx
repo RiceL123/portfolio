@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { MeshReflectorMaterial, BakeShadows } from '@react-three/drei'
-import { EffectComposer, Bloom, DepthOfField } from '@react-three/postprocessing'
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { easing } from 'maath'
 import { Instances, Computers } from './Computers.tsx'
 import { ResumeContext, type ResumeSectionId } from './ResumeContext'
@@ -34,10 +34,10 @@ export default function App() {
       <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', touchAction: 'none' }}>
         <LoadingScreen />
         <Canvas
-          shadows={!perf.isMobile}
-          dpr={perf.isMobile ? 1 : [1, 2]}
-          gl={{ antialias: !perf.isMobile }}
-          camera={{ position: [-1.5, 1, perf.isMobile ? 11.5 : 5.5], fov: 45, near: 1, far: 35 }}
+          shadows={false}
+          dpr={1}
+          gl={{ antialias: false }}
+          camera={{ position: [-1.5, 1, perf.isMobile ? 11.5 : 5.5], fov: 45, near: 1, far: perf.isMobile ? 35 : 20 }}
           eventSource={document.getElementById('root') ?? undefined}
           eventPrefix="client"
         >
@@ -51,7 +51,6 @@ export default function App() {
 
 function SceneContent() {
   const resume = useContext(ResumeContext)
-  const perf = useContext(PerformanceContext)
   const groupRef = useRef<any>(null)
   const targetX = resume?.resumeOpen ? -2 : 0
   useFrame((_, delta) => {
@@ -70,18 +69,16 @@ function SceneContent() {
         angle={0.12}
         penumbra={1}
         intensity={1}
-        castShadow={!perf.isMobile}
-        shadow-mapSize={perf.isMobile ? 512 : 1024}
       />
       <group ref={groupRef} position={[0, -1, 0]}>
         <Instances>
           <Computers scale={0.5} />
         </Instances>
-        <mesh receiveShadow={!perf.isMobile} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[50, 50]} />
           <MeshReflectorMaterial
             blur={[300, 100]}
-            resolution={perf.isMobile ? 512 : 2048}
+            resolution={512}
             mixBlur={1}
             mixStrength={100}
             roughness={0}
@@ -94,14 +91,7 @@ function SceneContent() {
         </mesh>
       </group>
       <EffectComposer>
-        {perf.isMobile ? (
-          <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.2} intensity={1.5} />
-        ) : (
-          <>
-            <Bloom luminanceThreshold={0.1} luminanceSmoothing={0} intensity={3} mipmapBlur />
-            <DepthOfField target={[0, 0, -2]} focusRange={4} bokehScale={4} height={700} />
-          </>
-        )}
+        <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.2} intensity={1.5} />
       </EffectComposer>
       <CameraRig />
       <BakeShadows />

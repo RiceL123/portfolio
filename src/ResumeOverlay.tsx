@@ -50,7 +50,7 @@ export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () =>
         top: 20,
         right: 20,
         bottom: 20,
-        width: '45%',
+        width: '60%',
         minWidth: 320,
         maxWidth: 520,
         background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.04) 100%)',
