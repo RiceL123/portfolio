@@ -19,7 +19,7 @@ export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () =>
     <div
       ref={containerRef}
       data-resume-overlay
-      className={`absolute top-5 right-5 bottom-5 w-[60%] min-w-[320px] max-w-[520px] flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.02] to-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-[28px] backdrop-saturate-[160%] transition-opacity duration-200 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      className={`absolute top-5 right-5 bottom-5 w-[90%] md:w-[45%] min-w-[320px] max-w-[520px] md:max-w-[45%] flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.02] to-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-[28px] backdrop-saturate-[160%] transition-opacity duration-200 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       style={{ WebkitBackdropFilter: 'blur(28px) saturate(160%)' }}
     >
       <header className="flex items-center justify-between px-5 py-4 border-b border-white/10 shrink-0 bg-white/[0.03]">
@@ -90,7 +90,9 @@ export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () =>
         <section id="projects" className="mb-7 py-4 border-b border-white/10 scroll-mt-3">
           <h2 className="text-xs font-semibold tracking-widest uppercase text-white/50 mb-3">Projects</h2>
           <div className="mb-4">
-            <div className="font-semibold text-white/95">RiceLang Playground</div>
+            <div className="font-semibold text-white/95">
+              <a href="https://ricelang-playground.vercel.app/" target="_blank" rel="noreferrer" className="text-white/95 hover:underline">RiceLang Playground</a>
+            </div>
             <div className="text-xs text-white/50 mt-1 mb-0">React, Java, Spring Boot, Wasm · Feb 2025 – Present</div>
             <ul className="mt-1.5 mb-0 pl-5 list-disc">
               <li className="text-sm leading-relaxed text-white/85 mb-1.5 pl-1">Built a compiler for a custom language, RiceLang, a C/Java-like language that compiles to JVM bytecode</li>
@@ -108,7 +110,9 @@ export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () =>
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold text-white/95">Personal Blog</div>
+            <div className="font-semibold text-white/95">
+              <a href="https://ricel123.vercel.app/" target="_blank" rel="noreferrer" className="text-white/95 hover:underline">Personal Blog</a>
+            </div>
             <div className="text-xs text-white/50 mt-1 mb-0">Astro, libSQL, DrizzleORM, TailwindCSS · Oct 2024 – Nov 2024</div>
             <ul className="mt-1.5 mb-0 pl-5 list-disc">
               <li className="text-sm leading-relaxed text-white/85 mb-1.5 pl-1">Achieved a 99+ Lighthouse score through static site generation with Astro to build a fast and responsive blog</li>
@@ -116,7 +120,9 @@ export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () =>
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold text-white/95">Recursive DNS Resolver</div>
+            <div className="font-semibold text-white/95">
+              <a href="https://dns-riceolver.vercel.app" target="_blank" rel="noreferrer" className="text-white/95 hover:underline">Recursive DNS Resolver</a>
+            </div>
             <div className="text-xs text-white/50 mt-1 mb-0">Python, React, JavaScript, Docker · May 2023 – Jan 2024</div>
             <ul className="mt-1.5 mb-0 pl-5 list-disc">
               <li className="text-sm leading-relaxed text-white/85 mb-1.5 pl-1">Developed an RFC-1035 compliant DNS resolver handling 500+ queries per second with multithreading</li>
@@ -124,7 +130,9 @@ export function ResumeOverlay({ open, onClose }: { open: boolean; onClose: () =>
             </ul>
           </div>
           <div>
-            <div className="font-semibold text-white/95">Personal Links</div>
+            <div className="font-semibold text-white/95">
+              <a href="https://ricel123-links.onrender.com/" target="_blank" rel="noreferrer" className="text-white/95 hover:underline">Personal Links</a>
+            </div>
             <div className="text-xs text-white/50 mt-1 mb-0">Vue, JavaScript · Jan 2023 – Aug 2023</div>
             <ul className="mt-1.5 mb-0 pl-5 list-disc">
               <li className="text-sm leading-relaxed text-white/85 mb-1.5 pl-1">Built a personalized site to display relevant links on a single landing page</li>
