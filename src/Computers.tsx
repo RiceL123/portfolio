@@ -336,7 +336,7 @@ function ScreenInteractive(props: any) {
   })
   return (
     <>
-      <ClickArrowHint hovered={hovered} />
+      {!resume?.resumeOpen && <ClickArrowHint hovered={hovered} />}
       <Screen
         {...props}
         tooltip="Resume"
